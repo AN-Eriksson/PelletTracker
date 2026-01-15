@@ -1,4 +1,5 @@
 using System.Data;
+using Dapper;
 using MySqlConnector;
 using PelletTracker.Components;
 using PelletTracker.Data;
@@ -16,7 +17,10 @@ public class Program
             new MySqlConnection(connectionString)
         );
         
-        builder.Services.AddScoped<PelletRepository>();
+        SqlMapper.AddTypeHandler(new DateOnlyHandler());
+        
+        builder.Services.AddScoped<PelletEntryRepository>();
+        builder.Services.AddScoped<PelletEntryService>();
 
         // Add services to the container.
         builder.Services.AddRazorComponents()

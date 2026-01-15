@@ -3,11 +3,11 @@ namespace PelletTracker.Data;
 using Dapper;
 using System.Data;
 
-public class PelletRepository
+public class PelletEntryRepository
 {
     private readonly IDbConnection _db;
 
-    public PelletRepository(IDbConnection db)
+    public PelletEntryRepository(IDbConnection db)
     {
         _db = db;
     }
