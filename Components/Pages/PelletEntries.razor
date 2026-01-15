@@ -1,0 +1,22 @@
+@page "/pelletentries"
+@rendermode InteractiveServer
+@using PelletTracker.Data
+@inject PelletRepository Repo
+
+<h3>Pellets</h3>
+
+<ul>
+    @foreach (var pelletEntry in _pelletEntries)
+    {
+        <li>@pelletEntry.Date</li>
+    }
+</ul>
+
+@code {
+    private List<PelletEntry> _pelletEntries = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _pelletEntries = (await Repo.GetAllPelletsAsync()).ToList();
+    }
+}

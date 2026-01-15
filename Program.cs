@@ -1,4 +1,7 @@
+using System.Data;
+using MySqlConnector;
 using PelletTracker.Components;
+using PelletTracker.Data;
 
 namespace PelletTracker;
 
@@ -7,6 +10,13 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        
+        var connectionString = builder.Configuration.GetConnectionString("Default");
+        builder.Services.AddScoped<IDbConnection>(sp =>
+            new MySqlConnection(connectionString)
+        );
+        
+        builder.Services.AddScoped<PelletRepository>();
 
         // Add services to the container.
         builder.Services.AddRazorComponents()
